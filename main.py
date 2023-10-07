@@ -1,3 +1,5 @@
+import csv
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -27,10 +29,12 @@ if response.status_code == 200:
                     buy = 0.0
                     sell = 0.0
 
-                data.append({'Data': day, 'Buy': buy, 'Sell': sell})
+                data.append([day, buy, sell])
 
-        print(data)
-
+        with open('dolar_setembro.csv', 'w', newline='') as file:
+            csv_writer = csv.writer(file)
+            csv_writer.writerow(['Data', 'Buy', 'Sell'])
+            csv_writer.writerows(data)
     else:
         print('Table not found')
 
